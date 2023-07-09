@@ -17,6 +17,7 @@
                   <button class="destroy" (click)="removeTodo(item)"></button>
               </div>
               <!-- NOTE: Change to edit-todo -->
+              
               <input class="edit" *ngIf="item.editing" type="text" [(ngModel)]="editingTodoTitle" (keyup.enter)="updateEditingTodo(item)" (blur)="stopEditing(item)" (keyup.escape)="stopEditing(item)">
           </li>
       </ul>
