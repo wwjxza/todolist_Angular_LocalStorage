@@ -1,0 +1,42 @@
+<section class="todoapp">
+  <header class="header">
+      <h1>Todos</h1>
+      <input autofocus class="new-todo" type="text" placeholder="What needs to be done?" [(ngModel)]="newTodoText" (keyup.enter)="addTodo()">
+  </header>
+  <section class="main" *ngIf="allItems.length > 0">
+      <input class="toggle-all" id="toggle-all" type="checkbox" *ngIf="allItems.length" [checked]="remaining === 0" (click)="toggleAll()">
+      <label for="toggle-all">Mark all as complete</label>
+      <ul class="todo-list">
+          <li class="todo-item" [class.completed]="item.completed" [class.editing]="item.editing" *ngFor="let item of items">
+              <!-- NOTE - change to view-todo -->
+              <div class="view">
+                  <!-- NOTE - change to toggle-done -->
+                  <input class="toggle" type="checkbox" (click)="toggleCompletion(item)" [checked]="item.completed">
+                  <label (dblclick)="editTodo(item)">{{item.title}}</label>
+                  <!-- NOTE: Change to remove-todo -->
+                  <button class="destroy" (click)="removeTodo(item)"></button>
+              </div>
+              <!-- NOTE: Change to edit-todo -->
+              <input class="edit" *ngIf="item.editing" type="text" [(ngModel)]="editingTodoTitle" (keyup.enter)="updateEditingTodo(item)" (blur)="stopEditing(item)" (keyup.escape)="stopEditing(item)">
+          </li>
+      </ul>
+  </section>
+  <footer class="footer" *ngIf="allItems.length > 0">
+      <span class="todo-count">
+          <strong>{{remaining}}</strong>
+          <span>{{remaining == 1 ? 'item' : 'items'}} left</span>
+      </span>
+      <ul class="filters">
+          <li>
+              <a href="#/all" (click)="filter = 'all'">All</a>
+          </li>
+          <li>
+              <a href="#/active" (click)="filter = 'active'">Active</a>
+          </li>
+          <li>
+              <a href="#/completed" (click)="filter = 'completed'">Completed</a>
+          </li>
+      </ul>
+      <button class="clear-completed" *ngIf="completed.length > 0" (click)="removeCompleted()">Clear completed todos</button>
+  </footer>
+</section>
